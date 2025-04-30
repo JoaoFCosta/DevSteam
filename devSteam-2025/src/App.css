@@ -55,3 +55,12 @@ input.form-control:focus {
 .gameCard:hover {
   transform: scale(1.03);
 }
+
+.modal {
+  background: rgba(0, 0, 0, 0.719);
+}
+
+.conteudoModal {
+  background-color: #19587b;
+  color: white;
+}

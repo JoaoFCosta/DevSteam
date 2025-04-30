@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import GameCard from "./GameCard";
 import { GlobalContext } from "../main.jsx";
 
 const OutrosJogos = (props) => {
   const { formatarMoeda } = useContext(GlobalContext);
+  const [selectedGame, setSelectedGame] = useState(null);
   const games = React.useMemo(
     () => [
       {
@@ -98,6 +99,14 @@ const OutrosJogos = (props) => {
     []
   );
 
+  const handleGameClick = (game) => {
+    setSelectedGame(game); // Define o jogo selecionado
+  };
+
+  const handleCloseModal = () => {
+    setSelectedGame(null); // Fecha a modal
+  };
+
   return (
     <div id="outrosJogos" className="container w-75 my-5">
       <h2 className="text-uppercase text-center text-md-start ms-md-5 ps-md-3 mb-4">
@@ -105,18 +114,76 @@ const OutrosJogos = (props) => {
       </h2>
       <div id="itensJogos" className="d-flex flex-column ms-md-5 ps-md-3 gap-4">
         {games.map((jogo) => (
-          <GameCard
-            key={jogo.id}
-            titulo={jogo.titulo}
-            preco={jogo.preco}
-            precoFormatado={formatarMoeda(jogo.preco)}
-            descricao={jogo.descricao}
-            imagem={jogo.imagem}
-            formatarMoeda={formatarMoeda}
-            onAddCarrinho={() => props.onAddCarrinho(jogo)}
-          />
+          <div key={jogo.id} onClick={() => handleGameClick(jogo)}>
+            <GameCard
+              key={jogo.id}
+              titulo={jogo.titulo}
+              preco={jogo.preco}
+              precoFormatado={formatarMoeda(jogo.preco)}
+              descricao={jogo.descricao}
+              imagem={jogo.imagem}
+              formatarMoeda={formatarMoeda}
+              onAddCarrinho={() => props.onAddCarrinho(jogo)}
+            />
+          </div>
         ))}
       </div>
+
+      {/* Modal para exibir informações do jogo */}
+      {selectedGame && (
+        <div
+          className="modal fade show d-block"
+          tabIndex="-1"
+          role="dialog"
+          onClick={handleCloseModal} // Fecha a modal ao clicar no fundo
+        >
+          <div
+            className="modal-dialog"
+            role="document"
+            onClick={(e) => e.stopPropagation()} // Impede o clique dentro da modal de fechá-la
+          >
+            <div className="conteudoModal modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">{selectedGame.titulo}</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  aria-label="Close"
+                  onClick={handleCloseModal}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <img
+                  src={selectedGame.imagem}
+                  alt={selectedGame.titulo}
+                  className="img-fluid mb-3"
+                />
+                <p>
+                  <strong>Descrição:</strong> {selectedGame.descricao}
+                </p>
+                <p>
+                  <strong>Categoria:</strong> {selectedGame.categoria}
+                </p>
+                <p>
+                  <strong>Preço:</strong> {formatarMoeda(selectedGame.preco)}
+                </p>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  onClick={() => {
+                    props.onAddCarrinho(selectedGame);
+                    handleCloseModal();
+                  }}
+                >
+                  Adicionar ao Carrinho
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

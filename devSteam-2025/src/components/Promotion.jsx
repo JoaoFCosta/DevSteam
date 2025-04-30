@@ -4,6 +4,7 @@ import { GlobalContext } from "../main.jsx";
 
 const Promotion = (props) => {
   const [aleatorio, setAleatorio] = useState([]);
+  const [selectedGame, setSelectedGame] = useState(null); // Estado para o jogo selecionado
   const { formatarMoeda } = useContext(GlobalContext);
 
   const games = React.useMemo(
@@ -81,12 +82,19 @@ const Promotion = (props) => {
   useEffect(() => {
     const aleatorioJogos = games
       .filter((jogo) => jogo.desconto > 0)
-      //.sort((a, b) => b.desconto - a.desconto) //ordenação por desconto decrescente
       .sort(() => Math.random() - 0.5) //ordenação aleatória
       .slice(0, 3);
 
     setAleatorio(aleatorioJogos);
   }, [games]);
+
+  const handleGameClick = (game) => {
+    setSelectedGame(game); // Define o jogo selecionado
+  };
+
+  const handleCloseModal = () => {
+    setSelectedGame(null); // Fecha a modal
+  };
 
   return (
     <div id="promotion" className="container w-75 my-4">
@@ -97,20 +105,81 @@ const Promotion = (props) => {
         id="itensPromo"
         className="d-flex flex-wrap gap-4 justify-content-around"
       >
-        {/* mapeando um array com react */}
         {aleatorio.map((jogo) => (
-          <PromoCard
-            key={jogo.id}
-            titulo={jogo.titulo}
-            preco={jogo.preco}
-            precoFormatado={formatarMoeda(jogo.preco)}
-            desconto={jogo.desconto}
-            imagem={jogo.imagem}
-            formatarMoeda={formatarMoeda} // Passando a função para o PromoCard
-            onAddCarrinho={() => props.onAddCarrinho(jogo)}
-          />
+          <div key={jogo.id} onClick={() => handleGameClick(jogo)}>
+            <PromoCard
+              titulo={jogo.titulo}
+              preco={jogo.preco}
+              precoFormatado={formatarMoeda(jogo.preco)}
+              desconto={jogo.desconto}
+              imagem={jogo.imagem}
+              formatarMoeda={formatarMoeda}
+              onAddCarrinho={() => props.onAddCarrinho(jogo)}
+            />
+          </div>
         ))}
       </div>
+
+      {/* Modal para exibir informações do jogo */}
+      {selectedGame && (
+        <div
+          className="modal fade show d-block"
+          tabIndex="-1"
+          role="dialog"
+          onClick={handleCloseModal} // Fecha a modal ao clicar no fundo
+        >
+          <div
+            className="modal-dialog"
+            role="document"
+            onClick={(e) => e.stopPropagation()} // Impede o clique dentro da modal de fechá-la
+          >
+            <div className="conteudoModal modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">{selectedGame.titulo}</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  aria-label="Close"
+                  onClick={handleCloseModal}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <img
+                  src={selectedGame.imagem}
+                  alt={selectedGame.titulo}
+                  className="img-fluid mb-3"
+                />
+                <p>
+                  <strong>Descrição:</strong> {selectedGame.descricao}
+                </p>
+                <p>
+                  <strong>Categoria:</strong> {selectedGame.categoria}
+                </p>
+                <p>
+                  <strong>Preço:</strong> {formatarMoeda(selectedGame.preco)}
+                </p>
+                {selectedGame.desconto > 0 && (
+                  <p>
+                    <strong>Desconto:</strong> {selectedGame.desconto}%
+                  </p>
+                )}
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  onClick={() => {
+                    props.onAddCarrinho(selectedGame);
+                    handleCloseModal();
+                  }}
+                >
+                  Adicionar ao Carrinho
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
