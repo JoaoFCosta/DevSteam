@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Footer from "../components/Footer";
 import PerfilHeader from "../components/PerfilHeader";
 
 const Pagamentos = () => {
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState(() => {
+    // Recupera os cartões salvos no localStorage ao carregar a página
+    const savedCards = localStorage.getItem("cards");
+    return savedCards ? JSON.parse(savedCards) : [];
+  });
+
   const [newCard, setNewCard] = useState({
     cardNumero: "",
     cardTitular: "",
@@ -24,12 +29,19 @@ const Pagamentos = () => {
       newCard.dataExpirar &&
       newCard.cvv
     ) {
-      setCards([...cards, newCard]);
+      const updatedCards = [...cards, newCard];
+      setCards(updatedCards);
+      localStorage.setItem("cards", JSON.stringify(updatedCards)); // Salva os cartões no localStorage
       setNewCard({ cardNumero: "", cardTitular: "", dataExpirar: "", cvv: "" });
     } else {
       alert("Por favor, preencha todos os campos do cartão.");
     }
   };
+
+  useEffect(() => {
+    // Atualiza o localStorage sempre que a lista de cartões mudar
+    localStorage.setItem("cards", JSON.stringify(cards));
+  }, [cards]);
 
   return (
     <>
@@ -53,15 +65,16 @@ const Pagamentos = () => {
             <p>Nenhum cartão salvo.</p>
           )}
         </div>
-        <div className="col d-flex flex-column justify-content-center align-items-center">
-          <h3 className="mb-3">Adicionar Novo Cartão</h3>
+        <div className="col-6 offset-4">
+          <h3>Adicionar Novo Cartão</h3>
+          <hr />
           <form
             onSubmit={(e) => {
               e.preventDefault();
               handleAddCard();
             }}
           >
-            <div className="mb-2">
+            <div className="mb-3">
               <label className="form-label">Número do Cartão:</label>
               <input
                 type="text"
@@ -69,22 +82,22 @@ const Pagamentos = () => {
                 value={newCard.cardNumero}
                 onChange={handleInputChange}
                 maxLength="16"
-                required
                 className="form-control"
+                required
               />
             </div>
-            <div className="mb-2">
+            <div className="mb-3">
               <label className="form-label">Nome do Titular:</label>
               <input
                 type="text"
                 name="cardTitular"
                 value={newCard.cardTitular}
                 onChange={handleInputChange}
-                required
                 className="form-control"
+                required
               />
             </div>
-            <div className="mb-2">
+            <div className="mb-3">
               <label className="form-label">Data de Validade:</label>
               <input
                 type="text"
@@ -92,11 +105,11 @@ const Pagamentos = () => {
                 value={newCard.dataExpirar}
                 onChange={handleInputChange}
                 placeholder="MM/AA"
-                required
                 className="form-control"
+                required
               />
             </div>
-            <div className="mb-2">
+            <div className="mb-3">
               <label className="form-label">CVV:</label>
               <input
                 type="password"
@@ -104,11 +117,13 @@ const Pagamentos = () => {
                 value={newCard.cvv}
                 onChange={handleInputChange}
                 maxLength="3"
-                required
                 className="form-control"
+                required
               />
             </div>
-            <button type="submit" className="btn btn-primary w-100 mt-5">Salvar Cartão</button>
+            <button type="submit" className="btn btn-primary">
+              Salvar Cartão
+            </button>
           </form>
         </div>
       </div>
