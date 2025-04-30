@@ -1,96 +1,98 @@
-import React from "react";
+import React, { useContext } from "react";
 import GameCard from "./GameCard";
+import { GlobalContext } from "../main.jsx";
 
-const OutrosJogos = () => {
+const OutrosJogos = (props) => {
+  const { formatarMoeda } = useContext(GlobalContext);
   const games = React.useMemo(
     () => [
       {
         id: 1,
-        titulo: "Counter-Strike 2",
-        preco: 0.0,
-        desconto: 0,
+        titulo: "Hollow Knight",
+        preco: 49.99,
+        desconto: 20,
         imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg",
+          "https://cdn.cloudflare.steamstatic.com/steam/apps/367520/header.jpg",
         descricao:
-          "O clássico FPS competitivo retorna com gráficos renovados e jogabilidade ainda mais precisa. Perfeito para amantes de tiro tático.",
-        categoria: "FPS",
+          "Explore um vasto mundo subterrâneo em um dos melhores jogos de plataforma e ação já criados.",
+        categoria: "Metroidvania",
       },
       {
         id: 2,
         titulo: "Cyberpunk 2077",
-        preco: 129.99,
-        desconto: 20,
+        preco: 199.99,
+        desconto: 50,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/header.jpg",
         descricao:
-          "Explore Night City como um mercenário em um futuro distópico, com narrativa profunda e visuais impressionantes.",
+          "Mergulhe em Night City, uma metrópole futurista cheia de ação, escolhas e histórias envolventes.",
         categoria: "RPG de Ação",
       },
       {
         id: 3,
-        titulo: "Elden Ring",
-        preco: 249.9,
-        desconto: 35,
+        titulo: "Stardew Valley",
+        preco: 24.99,
+        desconto: 0,
         imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg",
+          "https://cdn.cloudflare.steamstatic.com/steam/apps/413150/header.jpg",
         descricao:
-          "Uma aventura épica em mundo aberto criada por Hidetaka Miyazaki e George R. R. Martin. Desafios intensos e lore profundo.",
-        categoria: "RPG",
+          "Construa sua fazenda dos sonhos neste simulador de vida relaxante e viciante.",
+        categoria: "Simulação",
       },
       {
         id: 4,
         titulo: "Red Dead Redemption 2",
-        preco: 199.9,
+        preco: 249.99,
         desconto: 40,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg",
         descricao:
-          "Viva o Velho Oeste como Arthur Morgan em uma jornada cinematográfica com detalhes incríveis e mundo vivo.",
+          "Viva a vida de um fora-da-lei no Velho Oeste em um dos jogos mais imersivos já feitos.",
         categoria: "Ação e Aventura",
       },
       {
         id: 5,
-        titulo: "Hogwarts Legacy",
-        preco: 229.99,
-        desconto: 10,
+        titulo: "Hades",
+        preco: 79.99,
+        desconto: 25,
         imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/990080/header.jpg",
+          "https://cdn.cloudflare.steamstatic.com/steam/apps/1145360/header.jpg",
         descricao:
-          "Mergulhe no mundo bruxo de Hogwarts no século XIX. Crie seu próprio bruxo e descubra segredos mágicos.",
-        categoria: "RPG de Ação",
+          "Lute para escapar do submundo neste premiado jogo de ação roguelike com uma narrativa envolvente.",
+        categoria: "Roguelike",
       },
       {
         id: 6,
-        titulo: "The Witcher 3: Wild Hunt",
-        preco: 89.99,
-        desconto: 60,
+        titulo: "Among Us",
+        preco: 10.99,
+        desconto: 0,
         imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg",
+          "https://cdn.cloudflare.steamstatic.com/steam/apps/945360/header.jpg",
         descricao:
-          "Acompanhe Geralt de Rívia em sua busca épica por Ciri. Combate envolvente, escolhas impactantes e um dos melhores RPGs já feitos.",
-        categoria: "RPG",
+          "Jogue com amigos e descubra quem é o impostor neste divertido jogo de dedução social.",
+        categoria: "Multiplayer",
       },
       {
         id: 7,
-        titulo: "God of War",
-        preco: 159.99,
-        desconto: 25,
+        titulo: "The Sims 4",
+        preco: 199.99,
+        desconto: 30,
         imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/header.jpg",
+          "https://cdn.cloudflare.steamstatic.com/steam/apps/1222670/header.jpg",
         descricao:
-          "Kratos retorna em uma jornada emocional com seu filho Atreus. Uma releitura nórdica da lenda do Deus da Guerra.",
-        categoria: "Ação e Aventura",
+          "Crie e controle a vida de seus Sims neste simulador de vida icônico.",
+        categoria: "Simulação",
       },
       {
         id: 8,
-        titulo: "FIFA 24",
-        preco: 299.9,
-        desconto: 15,
+        titulo: "Dark Souls III",
+        preco: 159.99,
+        desconto: 50,
         imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/2195250/header.jpg",
+          "https://cdn.cloudflare.steamstatic.com/steam/apps/374320/header.jpg",
         descricao:
-          "O mais recente simulador de futebol da EA Sports, com gráficos realistas e modo carreira renovado.",
-        categoria: "Esportes",
+          "Enfrente desafios brutais e explore um mundo sombrio neste aclamado RPG de ação.",
+        categoria: "RPG de Ação",
       },
     ],
     []
@@ -102,8 +104,17 @@ const OutrosJogos = () => {
         Outros Jogos
       </h2>
       <div id="itensJogos" className="d-flex flex-column ms-md-5 ps-md-3 gap-4">
-        {games.map((item) => (
-          <GameCard key={item.id} id={item.id} />
+        {games.map((jogo) => (
+          <GameCard
+            key={jogo.id}
+            titulo={jogo.titulo}
+            preco={jogo.preco}
+            precoFormatado={formatarMoeda(jogo.preco)}
+            descricao={jogo.descricao}
+            imagem={jogo.imagem}
+            formatarMoeda={formatarMoeda}
+            onAddCarrinho={() => props.onAddCarrinho(jogo)}
+          />
         ))}
       </div>
     </div>

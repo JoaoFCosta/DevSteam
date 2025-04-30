@@ -45,3 +45,9 @@ body {
 input.form-control:focus {
   box-shadow: none;
 }
+
+.gameCard {
+  width: 100%;
+  transition: transform 0.2s;
+  background: linear-gradient(to bottom, #19587b, #2b87ae);
+}

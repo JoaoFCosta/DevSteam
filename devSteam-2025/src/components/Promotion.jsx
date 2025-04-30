@@ -21,17 +21,6 @@ const Promotion = (props) => {
       },
       {
         id: 2,
-        titulo: "Cyberpunk 2077",
-        preco: 129.99,
-        desconto: 20,
-        imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/header.jpg",
-        descricao:
-          "Explore Night City como um mercenário em um futuro distópico, com narrativa profunda e visuais impressionantes.",
-        categoria: "RPG de Ação",
-      },
-      {
-        id: 3,
         titulo: "Elden Ring",
         preco: 249.9,
         desconto: 35,
@@ -42,18 +31,7 @@ const Promotion = (props) => {
         categoria: "RPG",
       },
       {
-        id: 4,
-        titulo: "Red Dead Redemption 2",
-        preco: 199.9,
-        desconto: 40,
-        imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg",
-        descricao:
-          "Viva o Velho Oeste como Arthur Morgan em uma jornada cinematográfica com detalhes incríveis e mundo vivo.",
-        categoria: "Ação e Aventura",
-      },
-      {
-        id: 5,
+        id: 3,
         titulo: "Hogwarts Legacy",
         preco: 229.99,
         desconto: 10,
@@ -64,7 +42,7 @@ const Promotion = (props) => {
         categoria: "RPG de Ação",
       },
       {
-        id: 6,
+        id: 4,
         titulo: "The Witcher 3: Wild Hunt",
         preco: 89.99,
         desconto: 60,
@@ -75,7 +53,7 @@ const Promotion = (props) => {
         categoria: "RPG",
       },
       {
-        id: 7,
+        id: 5,
         titulo: "God of War",
         preco: 159.99,
         desconto: 25,
@@ -86,7 +64,7 @@ const Promotion = (props) => {
         categoria: "Ação e Aventura",
       },
       {
-        id: 8,
+        id: 6,
         titulo: "FIFA 24",
         preco: 299.9,
         desconto: 15,
