@@ -7,6 +7,16 @@ const Header = (props) => {
   useEffect(() => {
     const salvaUsuario = localStorage.getItem("devlogin");
     salvaUsuario && setUsuario(JSON.parse(salvaUsuario));
+
+    const handleStorageChange = () => {
+      const updatedUsuario = localStorage.getItem("devlogin");
+      updatedUsuario && setUsuario(JSON.parse(updatedUsuario));
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   return (
@@ -40,9 +50,12 @@ const Header = (props) => {
                 aria-expanded="false"
               >
                 <img
-                  src={`https://ui-avatars.com/api/?name=${usuario.nome}&background=2b87ae&color=fff`}
+                  src={
+                    usuario.foto ||
+                    `https://ui-avatars.com/api/?name=${usuario.nome}&background=2b87ae&color=fff`
+                  }
                   alt={usuario.nome}
-                  className="rounded-circle"
+                  className="rounded-circle object-fit-cover"
                   width="40"
                   height="40"
                 />
