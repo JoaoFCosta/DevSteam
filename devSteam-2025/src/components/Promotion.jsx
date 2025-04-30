@@ -114,7 +114,10 @@ const Promotion = (props) => {
               desconto={jogo.desconto}
               imagem={jogo.imagem}
               formatarMoeda={formatarMoeda}
-              onAddCarrinho={() => props.onAddCarrinho(jogo)}
+              onAddCarrinho={(e) => {
+                e.stopPropagation(); // Impede que o clique no botão abra a modal
+                props.onAddCarrinho(jogo);
+              }}
             />
           </div>
         ))}

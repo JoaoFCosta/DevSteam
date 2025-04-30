@@ -11,7 +11,7 @@ const OutrosJogos = (props) => {
         id: 1,
         titulo: "Hollow Knight",
         preco: 49.99,
-        desconto: 20,
+        desconto: 0,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/367520/header.jpg",
         descricao:
@@ -22,7 +22,7 @@ const OutrosJogos = (props) => {
         id: 2,
         titulo: "Cyberpunk 2077",
         preco: 199.99,
-        desconto: 50,
+        desconto: 0,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/header.jpg",
         descricao:
@@ -44,7 +44,7 @@ const OutrosJogos = (props) => {
         id: 4,
         titulo: "Red Dead Redemption 2",
         preco: 249.99,
-        desconto: 40,
+        desconto: 0,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg",
         descricao:
@@ -55,7 +55,7 @@ const OutrosJogos = (props) => {
         id: 5,
         titulo: "Hades",
         preco: 79.99,
-        desconto: 25,
+        desconto: 0,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/1145360/header.jpg",
         descricao:
@@ -77,7 +77,7 @@ const OutrosJogos = (props) => {
         id: 7,
         titulo: "The Sims 4",
         preco: 199.99,
-        desconto: 30,
+        desconto: 0,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/1222670/header.jpg",
         descricao:
@@ -88,7 +88,7 @@ const OutrosJogos = (props) => {
         id: 8,
         titulo: "Dark Souls III",
         preco: 159.99,
-        desconto: 50,
+        desconto: 0,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/374320/header.jpg",
         descricao:
@@ -123,7 +123,10 @@ const OutrosJogos = (props) => {
               descricao={jogo.descricao}
               imagem={jogo.imagem}
               formatarMoeda={formatarMoeda}
-              onAddCarrinho={() => props.onAddCarrinho(jogo)}
+              onAddCarrinho={(e) => {
+                e.stopPropagation(); // Impede que o clique no botão abra a modal
+                props.onAddCarrinho(jogo);
+              }}
             />
           </div>
         ))}

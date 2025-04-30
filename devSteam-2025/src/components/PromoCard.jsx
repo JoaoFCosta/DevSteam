@@ -20,7 +20,9 @@ const PromoCard = (props) => {
           {props.titulo}
         </h5>
         <div className="m-0 row h-100 align-items-center justify-content-center">
-          <span className="desconto col-4 h-100 fw-bold h5 m-0 d-flex align-items-center">
+          <span
+            className="desconto col-4 h-100 fw-bold h5 m-0 d-flex align-items-center justify-content-center py-3"
+          >
             -{props.desconto}%
           </span>
           <div className="col h-100 card-text bg-dark">

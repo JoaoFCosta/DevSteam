@@ -9,8 +9,9 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import App from "./App.jsx";
 import Login from "./pages/Login.jsx";
 import Checkout from "./pages/Checkout.jsx";
-import { formatarMoeda } from "./utils/formatters.js";
 import Perfil from "./pages/Perfil.jsx";
+import Pagamentos from "./pages/Pagamentos.jsx";
+import { formatarMoeda } from "./utils/formatters.js";
 
 // Contexto global acessível a todas as rotas
 export const GlobalContext = createContext(null);
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/login" element={<Login />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/perfil" element={<Perfil />} />
+          <Route path="/pagamento" element={<Pagamentos />} />
         </Routes>
       </BrowserRouter>
     </GlobalContext.Provider>

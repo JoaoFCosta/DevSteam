@@ -34,7 +34,9 @@ const PerfilHeader = () => {
                   Informações pessoais
                 </span>
               </Link>
-              <span id="paymentMethod">Métodos de pagamento</span>
+              <Link to={"/pagamento"} className="text-decoration-none text-white">
+                <span id="paymentMethod">Métodos de pagamento</span>
+              </Link>
             </ul>
           </div>
         </div>
