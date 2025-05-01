@@ -23,8 +23,7 @@ const Header = (props) => {
     <header className="pt-4 w-100 navbar navbar-dark bg-dark justify-content-around align-items-center">
       <div id="info" className="d-flex gap-5 w-50 justify-content-between">
         <div id="logo" role="button" className="d-flex align-items-center me-5">
-          <i className="bi bi-controller fs-1 text-light me-3"></i>
-          <span className="navbar-brand fw-bold fs-3">DevSteam</span>
+          <span className="navbar-brand fw-bold fs-3">💀DevSteam</span>
         </div>
 
         <input

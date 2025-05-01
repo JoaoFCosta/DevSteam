@@ -47,7 +47,7 @@ const Pagamentos = () => {
     <>
       <PerfilHeader />
       <div className="p-5">
-        <div className="col-3 text-start position-absolute">
+        <div className="col-md-6 text-start">
           <h3>Cartões Salvos</h3>
           <hr />
           {cards.length > 0 ? (
@@ -65,7 +65,8 @@ const Pagamentos = () => {
             <p>Nenhum cartão salvo.</p>
           )}
         </div>
-        <div className="col-6 offset-4">
+        <div className="col-md-6">
+        <hr />
           <h3>Adicionar Novo Cartão</h3>
           <hr />
           <form
@@ -112,7 +113,7 @@ const Pagamentos = () => {
             <div className="mb-3">
               <label className="form-label">CVV:</label>
               <input
-                type="password"
+                type="text"
                 name="cvv"
                 value={newCard.cvv}
                 onChange={handleInputChange}
@@ -121,7 +122,7 @@ const Pagamentos = () => {
                 required
               />
             </div>
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary w-100 mt-4">
               Salvar Cartão
             </button>
           </form>

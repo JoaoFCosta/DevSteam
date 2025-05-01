@@ -11,8 +11,7 @@ const PerfilHeader = () => {
             role="button"
             className="d-flex align-items-center me-5 ms-5"
           >
-            <i className="bi bi-controller fs-1 text-light me-3"></i>
-            <span className="navbar-brand fw-bold fs-3">DevSteam</span>
+            <span className="navbar-brand fw-bold fs-3">💀DevSteam</span>
           </div>
         </Link>
         <button
@@ -34,7 +33,10 @@ const PerfilHeader = () => {
                   Informações pessoais
                 </span>
               </Link>
-              <Link to={"/pagamento"} className="text-decoration-none text-white">
+              <Link
+                to={"/pagamento"}
+                className="text-decoration-none text-white"
+              >
                 <span id="paymentMethod">Métodos de pagamento</span>
               </Link>
             </ul>
