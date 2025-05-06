@@ -161,9 +161,7 @@ const OutrosJogos = (props) => {
                   alt={selectedGame.titulo}
                   className="img-fluid mb-3"
                 />
-                <p>
-                  <strong>Descrição:</strong> {selectedGame.descricao}
-                </p>
+                <p>{selectedGame.descricao}</p>
                 <p>
                   <strong>Categoria:</strong> {selectedGame.categoria}
                 </p>

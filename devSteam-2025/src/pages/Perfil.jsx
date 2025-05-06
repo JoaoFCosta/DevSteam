@@ -47,7 +47,7 @@ const Perfil = () => {
       <PerfilHeader />
 
       
-      <div className="container py-5">
+      <div className="container py-5 bg-dark my-4 rounded-4">
         <h2 className="text-center mb-4">Meu Perfil</h2>
         <div className="d-flex flex-column align-items-center">
           <img

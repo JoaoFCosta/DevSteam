@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-import Footer from "../components/Footer";
 import PerfilHeader from "../components/PerfilHeader";
+import PagamentoFooter from "../components/PagamentoFooter";
 
 const Pagamentos = () => {
   const [cards, setCards] = useState(() => {
-    // Recupera os cartões salvos no localStorage ao carregar a página
     const savedCards = localStorage.getItem("cards");
     return savedCards ? JSON.parse(savedCards) : [];
   });
@@ -31,7 +30,7 @@ const Pagamentos = () => {
     ) {
       const updatedCards = [...cards, newCard];
       setCards(updatedCards);
-      localStorage.setItem("cards", JSON.stringify(updatedCards)); // Salva os cartões no localStorage
+      localStorage.setItem("cards", JSON.stringify(updatedCards));
       setNewCard({ cardNumero: "", cardTitular: "", dataExpirar: "", cvv: "" });
     } else {
       alert("Por favor, preencha todos os campos do cartão.");
@@ -41,32 +40,33 @@ const Pagamentos = () => {
   const handleRemoveCard = (indexToRemove) => {
     const updatedCards = cards.filter((_, index) => index !== indexToRemove);
     setCards(updatedCards);
-    localStorage.setItem("cards", JSON.stringify(updatedCards)); // Atualiza o localStorage
+    localStorage.setItem("cards", JSON.stringify(updatedCards));
   };
 
   useEffect(() => {
-    // Atualiza o localStorage sempre que a lista de cartões mudar
     localStorage.setItem("cards", JSON.stringify(cards));
   }, [cards]);
 
   return (
     <>
       <PerfilHeader />
-      <div className="p-5">
-        <div className="row">
-          <div className="col-md-6 text-start">
-            <h3>Cartões Salvos</h3>
-            <hr />
+      <div className="container py-5">
+        <div className="row g-4">
+          <div className="col-12 col-md-4 text-start bg-dark p-4 rounded-4">
+            <h3 className="text-white">Cartões Salvos</h3>
+            <hr className="text-white" />
             {cards.length > 0 ? (
-              <ul>
+              <ul className="list-unstyled">
                 {cards.map((card, index) => (
-                  <li key={index}>
-                    <strong>Número:</strong> **** **** ****{" "}
-                    {card.cardNumero.slice(-4)} <br />
-                    <strong>Titular:</strong> {card.cardTitular} <br />
-                    <strong>Validade:</strong> {card.dataExpirar}
+                  <li key={index} className="mb-3">
+                    <strong className="text-white">Número:</strong> **** ****
+                    **** {card.cardNumero.slice(-4)} <br />
+                    <strong className="text-white">Titular:</strong>{" "}
+                    {card.cardTitular} <br />
+                    <strong className="text-white">Validade:</strong>{" "}
+                    {card.dataExpirar}
                     <button
-                      className="btn btn-danger btn-sm mx-4 mb-3"
+                      className="btn btn-danger btn-sm mx-4 mt-2"
                       onClick={() => handleRemoveCard(index)}
                     >
                       Remover
@@ -75,12 +75,12 @@ const Pagamentos = () => {
                 ))}
               </ul>
             ) : (
-              <p>Nenhum cartão salvo.</p>
+              <p className="text-white">Nenhum cartão salvo.</p>
             )}
           </div>
-          <div className="col-md-6">
-            <h3>Adicionar Novo Cartão</h3>
-            <hr />
+          <div className="col-12 col-md-8 bg-dark p-4 rounded-4">
+            <h3 className="text-white">Adicionar Novo Cartão</h3>
+            <hr className="text-white" />
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -88,7 +88,9 @@ const Pagamentos = () => {
               }}
             >
               <div className="mb-3">
-                <label className="form-label">Número do Cartão:</label>
+                <label className="form-label text-white">
+                  Número do Cartão:
+                </label>
                 <input
                   type="text"
                   name="cardNumero"
@@ -100,7 +102,9 @@ const Pagamentos = () => {
                 />
               </div>
               <div className="mb-3">
-                <label className="form-label">Nome do Titular:</label>
+                <label className="form-label text-white">
+                  Nome do Titular:
+                </label>
                 <input
                   type="text"
                   name="cardTitular"
@@ -111,19 +115,22 @@ const Pagamentos = () => {
                 />
               </div>
               <div className="mb-3">
-                <label className="form-label">Data de Validade:</label>
+                <label className="form-label text-white">
+                  Data de Validade:
+                </label>
                 <input
                   type="text"
                   name="dataExpirar"
                   value={newCard.dataExpirar}
                   onChange={handleInputChange}
+                  maxLength="5"
                   placeholder="MM/AA"
                   className="form-control"
                   required
                 />
               </div>
               <div className="mb-3">
-                <label className="form-label">CVV:</label>
+                <label className="form-label text-white">CVV:</label>
                 <input
                   type="text"
                   name="cvv"
@@ -141,7 +148,7 @@ const Pagamentos = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <PagamentoFooter />
     </>
   );
 };

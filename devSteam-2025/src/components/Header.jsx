@@ -68,6 +68,9 @@ const Header = (props) => {
                     Perfil
                   </Link>
                 </li>
+                  <li>
+                    {usuario.email == "admin@admin.com" ? <Link to={"/dashboard"} className="dropdown-item">Painel Admin</Link> : <></>}
+                  </li>
                 <li>
                   <Link
                     to={"/"}

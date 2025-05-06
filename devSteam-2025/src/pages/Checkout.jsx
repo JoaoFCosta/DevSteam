@@ -4,9 +4,10 @@ import { GlobalContext } from "../main.jsx";
 
 const Checkout = () => {
   const [carrinho, setCarrinho] = useState([]);
-  const [isHovered, setIsHovered] = useState(false);
+  const [cupons, setCupons] = useState([]);
   const [cupom, setCupom] = useState("");
   const [cupomAplicado, setCupomAplicado] = useState(false);
+  const [descontoCupom, setDescontoCupom] = useState(0);
   const [cupomError, setCupomError] = useState("");
   const navigate = useNavigate();
   const { formatarMoeda } = useContext(GlobalContext);
@@ -17,12 +18,13 @@ const Checkout = () => {
     0
   );
 
-  const descontoCupom = cupomAplicado ? subtotal * 0.1 : 0;
   const total = subtotal - descontoCupom;
 
   useEffect(() => {
     const itensCarrinho = localStorage.getItem("devcarrinho");
+    const savedCupons = localStorage.getItem("cupons");
     itensCarrinho ? setCarrinho(JSON.parse(itensCarrinho)) : navigate("/");
+    savedCupons && setCupons(JSON.parse(savedCupons));
   }, [navigate]);
 
   const handleConfirmar = () => {
@@ -52,11 +54,16 @@ const Checkout = () => {
   };
 
   const aplicarCupom = () => {
-    if (cupom.trim().toLowerCase() === "devpedreiro") {
+    const cupomValido = cupons.find(
+      (c) => c.codigo.toLowerCase() === cupom.trim().toLowerCase()
+    );
+    if (cupomValido) {
       setCupomAplicado(true);
+      setDescontoCupom(subtotal * (cupomValido.desconto / 100));
       setCupomError("");
     } else {
       setCupomAplicado(false);
+      setDescontoCupom(0);
       setCupomError("Cupom inválido");
     }
   };
@@ -64,18 +71,15 @@ const Checkout = () => {
   const removerCupom = () => {
     setCupom("");
     setCupomAplicado(false);
+    setDescontoCupom(0);
     setCupomError("");
   };
 
   return (
     <div className="container py-4">
       <div className="row">
-        {/* ... Coluna do carrinho permanece a mesma ... */}
         <div className="col-lg-8">
-          <div
-            className="card border-0 shadow-sm rounded-4 mb-4"
-            style={{ background: "#d9d9d9" }}
-          >
+          <div className="card border-0 shadow-sm rounded-4 mb-4">
             <div className="card-header border-bottom-0 py-3">
               <h4 className="mb-0 fw-bolder">Meu Carrinho</h4>
             </div>
@@ -174,10 +178,7 @@ const Checkout = () => {
         </div>
 
         <div className="col-lg-4">
-          <div
-            className="card border-0 shadow-sm rounded-4"
-            style={{ background: "#d9d9d9" }}
-          >
+          <div className="card border-0 shadow-sm rounded-4">
             <div className="card-header border-bottom-0 py-3">
               <h4 className="mb-0 fw-bolder">Resumo do Pedido</h4>
             </div>
@@ -185,7 +186,7 @@ const Checkout = () => {
               {/* Seção do cupom de desconto - AGORA NO TOPO */}
               <div className="mb-3">
                 <label htmlFor="cupom" className="form-label mb-2">
-                  cupom de desconto
+                  Cupom de desconto
                 </label>
                 <div className="input-group">
                   <input
@@ -243,7 +244,7 @@ const Checkout = () => {
               {/* Exibe o desconto do cupom quando aplicado */}
               {cupomAplicado && (
                 <div className="d-flex justify-content-between mb-2 mt-2">
-                  <span className="text-success">Desconto (10%)</span>
+                  <span className="text-success">Desconto</span>
                   <span className="text-success">
                     -{formatarMoeda(descontoCupom)}
                   </span>
@@ -270,14 +271,7 @@ const Checkout = () => {
               </button>
 
               <button
-                style={{
-                  background: isHovered && "#2a475e",
-                  borderColor: "#2a475e",
-                  color: !isHovered && "#2a475e",
-                }}
                 className="btn btn-outline-secondary w-100 mt-2"
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
                 onClick={() => navigate("/")}
               >
                 Continuar Comprando

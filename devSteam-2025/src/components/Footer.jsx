@@ -2,8 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div>
-      <footer className="pt-4 w-100 d-flex bg-dark justify-content-around align-items-center">
+      <footer className="pt-4 w-100 d-flex bg-dark justify-content-around align-items-center bottom-0">
         <div
           id="logo"
           role="button"
@@ -13,7 +12,6 @@ const Footer = () => {
           <small>Powered by VoLvE</small>
         </div>
       </footer>
-    </div>
   );
 };
 
