@@ -75,7 +75,7 @@ const Login = () => {
             <button className="btn btn-primary w-100 mt-3">Entrar</button>
           </form>
           <hr />
-          <h2 className="text-center fw-bolder">Entrar com</h2>
+          <h2 className="text-center fw-bolder">Ou <br /> Entrar com</h2>
           <div className="d-flex justify-content-center">
             <img src={QrCode} alt="" height={300} className="mt-1" />
           </div>

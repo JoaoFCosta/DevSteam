@@ -136,7 +136,7 @@ const Promotion = (props) => {
             role="document"
             onClick={(e) => e.stopPropagation()} // Impede o clique dentro da modal de fechá-la
           >
-            <div className="conteudoModal modal-content">
+            <div className="conteudoModal modal-content text-white">
               <div className="modal-header">
                 <h5 className="modal-title">{selectedGame.titulo}</h5>
                 <button

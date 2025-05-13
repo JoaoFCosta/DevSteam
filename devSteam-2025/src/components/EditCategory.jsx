@@ -29,7 +29,6 @@ const EditCategory = () => {
 
   return (
     <div className="bg-dark p-4 rounded-4">
-      <div className="col-md-6">
         {/* Gerenciar Categorias */}
         <div className="mb-5">
           <h3>Categorias</h3>
@@ -58,8 +57,7 @@ const EditCategory = () => {
             Adicionar Categoria
           </button>
         </div>
-      </div>
-    </div>
+      </div>  
   );
 };
 

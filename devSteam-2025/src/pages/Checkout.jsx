@@ -9,6 +9,8 @@ const Checkout = () => {
   const [cupomAplicado, setCupomAplicado] = useState(false);
   const [descontoCupom, setDescontoCupom] = useState(0);
   const [cupomError, setCupomError] = useState("");
+  const [cartaoSelecionado, setCartaoSelecionado] = useState(null);
+  const [cards, setCards] = useState([]);
   const navigate = useNavigate();
   const { formatarMoeda } = useContext(GlobalContext);
 
@@ -21,10 +23,32 @@ const Checkout = () => {
   const total = subtotal - descontoCupom;
 
   useEffect(() => {
+    const usuario = localStorage.getItem("devlogin");
+    if (!usuario) {
+      navigate("/login"); // Redireciona para a tela de login se o usuário não estiver logado
+      return;
+    }
+
     const itensCarrinho = localStorage.getItem("devcarrinho");
     const savedCupons = localStorage.getItem("cupons");
-    itensCarrinho ? setCarrinho(JSON.parse(itensCarrinho)) : navigate("/");
+    const savedCards = localStorage.getItem("cards");
+
+    if (itensCarrinho) {
+      setCarrinho(JSON.parse(itensCarrinho));
+    } else {
+      navigate("/"); // Redireciona para a página inicial se o carrinho estiver vazio
+    }
+
     savedCupons && setCupons(JSON.parse(savedCupons));
+    if (savedCards) {
+      const parsedCards = JSON.parse(savedCards);
+      setCards(parsedCards);
+      if (parsedCards.length === 0) {
+        navigate("/pagamento"); // Redireciona para a página de adicionar cartões se não houver cartões cadastrados
+      }
+    } else {
+      navigate("/pagamento"); // Redireciona para a página de adicionar cartões se não houver cartões salvos
+    }
   }, [navigate]);
 
   const handleConfirmar = () => {
@@ -73,6 +97,10 @@ const Checkout = () => {
     setCupomAplicado(false);
     setDescontoCupom(0);
     setCupomError("");
+  };
+
+  const handleSelecionarCartao = (index) => {
+    setCartaoSelecionado(index);
   };
 
   return (
@@ -260,7 +288,39 @@ const Checkout = () => {
                 <span className="fw-bold fs-4">{formatarMoeda(total)}</span>
               </div>
 
+              {/* Seção de escolha de cartão */}
+              <div className="mb-3">
+                <h5 className="mb-2">Escolha um cartão</h5>
+                {cards.length > 0 ? (
+                  <ul className="list-group">
+                    {cards.map((card, index) => (
+                      <li
+                        key={index}
+                        className={`list-group-item d-flex justify-content-between align-items-center ${
+                          cartaoSelecionado === index ? "active" : ""
+                        }`}
+                        onClick={() => handleSelecionarCartao(index)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <span>
+                          **** **** **** {card.cardNumero.slice(-4)} -{" "}
+                          {card.cardTitular}
+                        </span>
+                        {cartaoSelecionado === index && (
+                          <i className="bi bi-check-circle text-success"></i>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-muted">
+                    Nenhum cartão salvo. Adicione um em "Perfil".
+                  </p>
+                )}
+              </div>
+
               {/* Botões de ação */}
+              
               <button
                 id="addCarrinho"
                 className="btn btn-success desconto border-0 text-light w-100 py-3 fw-bold"

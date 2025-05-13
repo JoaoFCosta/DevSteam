@@ -58,10 +58,9 @@ input.form-control:focus {
 }
 
 .modal {
-  background: rgba(0, 0, 0, 0.719);
+  background: rgba(0, 0, 0, 0.74);
 }
 
 .conteudoModal {
   background-color: #19587b;
-  color: white;
 }
