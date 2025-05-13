@@ -8,16 +8,15 @@ import QrCode from "../assets/qrCode.jpg";
 const Login = () => {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (nome && email && phone && dataNascimento) {
+    if (nome && email && dataNascimento) {
       localStorage.setItem(
         "devlogin",
-        JSON.stringify({ nome, email, phone, dataNascimento })
+        JSON.stringify({ nome, email, dataNascimento })
       );
 
       navigate("/");
@@ -58,19 +57,6 @@ const Login = () => {
               />
             </div>
 
-            <div className="mb-2">
-              <label className="form-label" htmlFor="frmTel">
-                Telefone
-              </label>
-              <input
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="form-control"
-                type="tel"
-                name="frmTel"
-                id="frmTel"
-              />
-            </div>
 
             <div className="mb-2">
               <label className="form-label" htmlFor="frmDataNascimento">
@@ -96,7 +82,6 @@ const Login = () => {
         </div>
       </div>
 
-      <Footer />
     </>
   );
 };

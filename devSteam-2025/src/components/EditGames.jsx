@@ -67,6 +67,7 @@ const EditGames = () => {
         <div className="col-md-6">
           <div className="mb-5">
             <h3>Gerenciar Jogos</h3>
+            <hr />
             <ul>
               {jogos.map((jogo, index) => (
                 <li key={index}>
@@ -96,8 +97,9 @@ const EditGames = () => {
             </ul>
           </div>
         </div>
-        <div className="col-md-6 ">
-          <div className="mb-5 mt-5">
+        
+        <div className="col-md-6 mt-5">
+          <div className="mb-5 mt-4">
             <input
               type="text"
               value={novoJogo.titulo}

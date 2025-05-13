@@ -4,9 +4,7 @@ import Footer from "../components/Footer";
 
 const Perfil = () => {
   const [usuario, setUsuario] = useState({
-    nome: "",
     email: "",
-    phone: "",
     foto: "",
   });
 
@@ -46,21 +44,20 @@ const Perfil = () => {
     <>
       <PerfilHeader />
 
-      
       <div className="container py-5 bg-dark my-4 rounded-4">
         <h2 className="text-center mb-4">Meu Perfil</h2>
         <div className="d-flex flex-column align-items-center">
           <img
             src={
               usuario.foto ||
-              `https://ui-avatars.com/api/?name=${usuario.nome}&background=2b87ae&color=fff`
+              `https://ui-avatars.com/api/?name=${usuario.email}&background=2b87ae&color=fff`
             }
             alt="Avatar"
             className="rounded-circle mb-3 object-fit-cover"
             width="300"
             height="300"
           />
-          
+
           <form className="w-50">
             <div class="mb-3">
               <label htmlFor="foto" className="form-label">
@@ -74,19 +71,6 @@ const Perfil = () => {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="nome" className="form-label">
-                Nome
-              </label>
-              <input
-                type="text"
-                id="nome"
-                name="nome"
-                className="form-control"
-                value={usuario.nome}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-3">
               <label htmlFor="email" className="form-label">
                 E-mail
               </label>
@@ -96,19 +80,6 @@ const Perfil = () => {
                 name="email"
                 className="form-control"
                 value={usuario.email}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="phone" className="form-label">
-                Telefone
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                className="form-control"
-                value={usuario.phone}
                 onChange={handleChange}
               />
             </div>
