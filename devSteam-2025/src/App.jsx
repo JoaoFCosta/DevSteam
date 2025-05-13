@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import "./App.css";
 
 import Header from "./components/Header";
@@ -19,8 +18,6 @@ function App() {
     const salvaCarrinho = localStorage.getItem("devcarrinho");
     salvaCarrinho && setCarrinhoItem(JSON.parse(salvaCarrinho));
   }, []);
-
-  // console.log(localStorage.getItem("devcarrinho"));
 
   const handleAddCarrinho = (produto) => {
     setCarrinhoItem((itemAnterior) => {
@@ -65,6 +62,8 @@ function App() {
         onUpdateCarrinho={handleUpdateCarrinho}
         carrinhoItem={carrinhoItem}
       />
+
+
       <OutrosJogos onAddCarrinho={handleAddCarrinho} />
 
       <Footer />

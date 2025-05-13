@@ -37,7 +37,7 @@ const Header = (props) => {
         {usuario ? (
           <span className="d-flex align-items-center gap-2 me-0 me-md-5">
             <span className="d-none d-md-block">
-              Olá, {usuario.nome.split(" ")[0]}!{" "}
+              {usuario.nome.split(" ")[0]}{" "}
             </span>
             <div className="dropdown">
               <div
@@ -68,9 +68,15 @@ const Header = (props) => {
                     Perfil
                   </Link>
                 </li>
-                  <li>
-                    {usuario.email == "admin@admin.com" ? <Link to={"/dashboard"} className="dropdown-item">Painel Admin</Link> : <></>}
-                  </li>
+                <li>
+                  {usuario.email == "admin@admin.com" ? (
+                    <Link to={"/dashboard"} className="dropdown-item">
+                      Painel Admin
+                    </Link>
+                  ) : (
+                    <></>
+                  )}
+                </li>
                 <li>
                   <Link
                     to={"/"}
@@ -94,12 +100,12 @@ const Header = (props) => {
           >
             <i className="bi bi-person-circle fs-3"></i>
             <div className="d-none d-md-flex flex-column m-0 w-50">
-              <span className="h6 m-0">Olá, faça seu login ou cadastre-se</span>
+              <span className="h6 m-0">Entrar</span>
             </div>
           </Link>
         )}
 
-        <div className="position-relative">
+        <div className="position-relative ms-5">
           <i
             role="button"
             data-bs-toggle="offcanvas"

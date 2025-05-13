@@ -107,16 +107,39 @@ const OutrosJogos = (props) => {
     setSelectedGame(null); // Fecha a modal
   };
 
+  const [selectedCategory, setSelectedCategory] = useState("Todos");
+
+  const categories = ["Todos", ...new Set(games.map((item) => item.categoria))];
+
+  const filteredGames =
+    selectedCategory === "Todos"
+      ? games
+      : games.filter((item) => item.categoria === selectedCategory);
+
   return (
     <div id="outrosJogos" className="container w-75 my-5">
       <h2 className="text-uppercase text-center text-md-start ms-md-5 ps-md-3 mb-4">
         Outros Jogos
       </h2>
+
+      <div className="ms-md-5 ps-md-3 mb-4">
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="form-select "
+        >
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div id="itensJogos" className="d-flex flex-column ms-md-5 ps-md-3 gap-4">
-        {games.map((jogo) => (
+        {filteredGames.map((jogo) => (
           <div key={jogo.id} onClick={() => handleGameClick(jogo)}>
             <GameCard
-              key={jogo.id}
               titulo={jogo.titulo}
               preco={jogo.preco}
               precoFormatado={formatarMoeda(jogo.preco)}
@@ -124,14 +147,13 @@ const OutrosJogos = (props) => {
               imagem={jogo.imagem}
               formatarMoeda={formatarMoeda}
               onAddCarrinho={(e) => {
-                e.stopPropagation(); // Impede que o clique no botão abra a modal
+                e.stopPropagation();
                 props.onAddCarrinho(jogo);
               }}
             />
           </div>
         ))}
       </div>
-
       {/* Modal para exibir informações do jogo */}
       {selectedGame && (
         <div
