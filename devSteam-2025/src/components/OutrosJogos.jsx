@@ -122,11 +122,11 @@ const OutrosJogos = (props) => {
         Outros Jogos
       </h2>
 
-      <div className="ms-md-5 ps-md-3 mb-4">
+      <div className="ms-md-5 ps-md-3 mb-4 d-flex justify-content-center">
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="form-select "
+          className="form-select w-50 rounded-pill"
         >
           {categories.map((category) => (
             <option key={category} value={category}>
