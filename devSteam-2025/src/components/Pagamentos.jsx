@@ -49,10 +49,9 @@ const Pagamentos = () => {
 
   return (
     <>
-      <PerfilHeader />
       <div className="container py-5">
         <div className="row g-4">
-          <div className="col-12 col-md-4 text-start bg-dark p-4 rounded-4">
+          <div className="col-12 col-md-4 text-start bg-dark p-4 rounded-start-4">
             <h3 className="text-white">Cartões Salvos</h3>
             <hr className="text-white" />
             {cards.length > 0 ? (
@@ -78,7 +77,7 @@ const Pagamentos = () => {
               <p className="text-white">Nenhum cartão salvo.</p>
             )}
           </div>
-          <div className="col-12 col-md-8 bg-dark p-4 rounded-4">
+          <div className="col-12 col-md-8 bg-dark p-4 rounded-end-4">
             <h3 className="text-white">Adicionar Novo Cartão</h3>
             <hr className="text-white" />
             <form
@@ -148,7 +147,6 @@ const Pagamentos = () => {
           </div>
         </div>
       </div>
-      <PagamentoFooter />
     </>
   );
 };

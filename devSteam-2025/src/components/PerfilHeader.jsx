@@ -25,23 +25,6 @@ const PerfilHeader = () => {
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <div className="fs-5 mx-3">
-            <ul className="navbar-nav">
-              <Link to={"/perfil"} className="text-decoration-none text-white">
-                <span id="personalInfo" className="me-5">
-                  Informações pessoais
-                </span>
-              </Link>
-              <Link
-                to={"/pagamento"}
-                className="text-decoration-none text-white"
-              >
-                <span id="paymentMethod">Métodos de pagamento</span>
-              </Link>
-            </ul>
-          </div>
-        </div>
       </div>
     </header>
   );
